@@ -1,0 +1,216 @@
+@import "tailwindcss";
+
+.banner-slider{
+  height:100vh;
+}
+.banner-slider .item{
+  height:100vh;
+}
+.banner-slider .item h2{
+  font-size:60px;
+  font-weight:bold;
+}
+.swiper-slide .info {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+
+.swiper-slide-active .info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.container{
+  max-width: 1200px !important;
+  width:1200px !important;
+}
+
+header .logo{
+  width:100px;
+}
+
+header nav ul li a{
+  color:#ffffff;
+    font-weight:600;
+  text-decoration:none;
+  text-transform: uppercase;
+}
+
+.btn-border{
+  border:1px solid rgba(0,0,0,0.3);
+  color:rgba(0,0,0,0.8);
+  padding:6px 10px !important;
+  margin-right:8px !important;
+}
+header .btn-border{
+  color:#fff !important;
+  border:1px solid white !important;
+}
+.filterProducts .list-inline li{
+  margin: 0 35px !important;
+}
+.filterProducts .list-inline li.active img{
+  opacity:0.8 !important;
+}
+.filterProducts .list-inline li.active h4{
+  color:#e3000e !important;
+}
+.productsList .product-item-v1{
+  width:22% !important;}
+.product-item-v1 .imgWrapper{
+  border:1px solid rgba(0,0,0,0.1);
+  cursor:pointer;
+}
+.product-item-v1 .imgWrapper img{
+  width:100% !important;
+  height:auto !important;
+}
+.product-item-v1 .imgWrapper img:hover{
+  transform:scale(1.1);
+  transition:transform 0.5s ease-in-out !important;
+}
+
+.bg-brown{
+  background:#642f21
+}
+.product-item-v1 .info button{
+  padding:7px 20px !important;
+  font-weight:600 !important;
+  color:#642f21;
+  border:1px solid #642f21 !important;
+}
+.product-item-v1 .info button:hover{
+  background:#642f21 !important;
+  color:#fff !important;
+}
+.product-item-v1 .info button svg{
+  font-size:24px;
+}
+
+.section2{
+  padding:45px 0 !important;
+  background-size: contain !important;
+  height:700px;
+}
+.section2 h2{
+  font-size:50px;
+  font-weight:bold;
+}
+.text-brown{
+  color:#642f21 !important;
+}
+p{
+  font-size:18px !important;
+}
+.btn-red{
+  background:#e3000e !important;
+  color:#ffffff;
+  border:1px solid #e3000e !important;
+}
+.btn-red:hover{
+  background:#ffffff !important;
+  color:#e3000e !important;
+}
+.btn-lg{
+  font-size:18px !important;
+  font-weight:600 !important;
+}
+.no-radius{
+  border-radius:0 !important;
+}
+.bg-y{
+  background:#F7be27 !important;
+}
+.section3 .box h3{
+  font-size:20px !important;
+  font-weight:bold !important;
+}
+.text-red{
+  color:#e3000e !important;
+}
+.hd{
+    font-size:40px !important;
+  font-weight:bold !important;
+}
+.product-item-v2{
+  border:1px solid rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+.product-item-v2 .imgWrapper img{
+  transition:all 0.3s ease;
+}
+.product-item-v2 .imgWrapper img:hover{
+  transform:scale(1.1);
+}
+.delivery-section{
+  background:url('/public/delivery.png') no-repeat top center;
+}
+footer{
+  padding:45px 0 !important;
+}
+footer ul li{
+  margin:0 15px !important;
+}
+footer ul li a{
+  text-decoration: none !important;
+  color:#000 !important;
+  font-weight:600 !important;
+}
+footer ul li a svg{
+  font-size:25px !important;
+}
+footer ul li a:hover{
+  color:#F7be27 !important;
+}
+
+.signIn{
+  font-size:70px !important;
+  font-weight:bold !important;
+}
+
+.form .or span{
+  border:1px solid rgba(0,0,0,0.1) !important;
+}
+.form .or span .line{
+  background:rgba(0,0,0,0.1)!important;
+}
+.authButton{
+  padding:10px  20px !important;
+  background: #868686 !important;
+  text-transform: capitalize !important;
+  color:rgba(0,0,0,0.8) !important;
+  font-weight:600 !important;
+}
+.signInBox{
+  background:#fafafa !important;
+  padding:25px !important;
+  border-radius:10px !important;
+}
+
+.bold{
+  font-weight:bold !important;
+}
+.text-y{
+  color:#F7be27 !important;
+}
+.large{
+  font-size:2rem !important;
+}
+.qtyDrop{
+  width:400px !important;
+}
+.qtyDrop .action{
+  min-width: 40px !important;
+  height: 40px !important;
+  border-radius: 100% !important;
+  background:#cccccc !important;
+}
+.smallSlider .item{
+  padding:10px !important;
+  border:1px solid rgba(0,0,0,0.3) !important;
+}
+.smallSlider .item.active{
+  border:1px solid #e3000e !important;
+}
