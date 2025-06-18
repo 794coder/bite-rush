@@ -1,14 +1,32 @@
 "use client"
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
-import ProductItem from "@/components/ProductItemV1";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination} from "swiper/modules";
+
+// Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import ProductItemV2 from "@/components/ProductItemV2";
 
 const Menu = () => {
      const [isActive, setIsActive] = useState(0);
     const filterProducts=(index)=>{
         setIsActive(index);
     }
+    const [menu,setMenu]=useState([]);
+   useEffect(() => {
+  const fetchMenu = async () => {
+    const res = await fetch("/api/menu");
+    const data = await res.json();
+    setMenu(data.menu);
+  };
+
+  fetchMenu();
+}, []);
     return (
         <>
             <section
@@ -41,14 +59,35 @@ const Menu = () => {
                       </li>
                   </ul>
 
-                  <div className="productsList ">
-                      <div className="container px-5 flex items-center gap-5 justify-between">
-                          <ProductItem/>
-                          <ProductItem/>
-                          <ProductItem/>
-                          <ProductItem/>
-                      </div>
-                  </div>
+                 <div className="productsList py-10 bg-[#fff7f2]">
+  <div className="container mx-auto px-4">
+    <h2 className="text-3xl font-bold text-center text-brown mb-8">Our Signature Burgers</h2>
+
+    <Swiper
+      modules={[Navigation, Pagination]}
+      navigation
+      pagination={{ clickable: true }}
+      spaceBetween={24}
+      slidesPerView={3}
+      breakpoints={{
+        0: { slidesPerView: 1 },
+        640: { slidesPerView: 1 },
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+      }}
+      loop={true}
+      className="w-full"
+    >
+      {menu.length > 0 &&
+        menu.map((item, index) => (
+          <SwiperSlide key={index} className="pb-10">
+            <ProductItemV2 item={item} />
+          </SwiperSlide>
+        ))}
+    </Swiper>
+  </div>
+</div>
+
               </div>
           </section>
         </>

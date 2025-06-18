@@ -6,6 +6,8 @@ import {IoMdEye, IoMdEyeOff} from "react-icons/io";
 import Button from "@mui/material/Button";
 import {FcGoogle} from "react-icons/fc";
 import Link from "next/link";
+import {toast} from "react-toastify";
+import {useRouter} from "next/navigation";
 
 
 const SignIn = () => {
@@ -13,6 +15,42 @@ const SignIn = () => {
     const isShowingPassword=()=>{
         setShowPassword(!showPassword);
     }
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const router=useRouter();
+
+   const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (email.trim() === "" || password.trim() === "") {
+    toast.error("All fields are required");
+    return;
+  }
+
+  try {
+    const res = await fetch("/api/signIn", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await res.json();
+    console.log(data);
+    if(res.ok){
+        localStorage.setItem("token",data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        toast.success("Signed in successfully!");
+        router.push("/")
+    }else{
+        toast.error(data.message || "Sign-in failed");
+    }
+
+  } catch (err) {
+    toast.error("Something went wrong!");
+  }
+};
 
 
     return (
@@ -30,7 +68,7 @@ const SignIn = () => {
             <section className={"signInPage py-4"}>
                 <div className="container">
                     <div className="signInBox m-auto  w-[400px] p-3">
-                        <form className="w-full form" >
+                        <form className="w-full form" onSubmit={handleSubmit} >
                             <div className="form-group w-full mt-3">
                                 <Textfield
                                     id={"outlined-basic"}
@@ -38,6 +76,8 @@ const SignIn = () => {
                                     variant={"outlined"}
                                     type={"email"}
                                     className={"w-full"}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
                             <div className="form-group w-full mt-3">
@@ -48,6 +88,8 @@ const SignIn = () => {
                                     variant={"outlined"}
                                     type={showPassword===false?"text":"password"}
                                     className={"w-full"}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                                     {showPassword===false?<IoMdEye className="icon absolute top-[20px] right-[20px] cursor-pointer
                                     text-lg"
@@ -57,7 +99,7 @@ const SignIn = () => {
                             </div>
                             <div className="form-group">
                                 <Button className={"btn-red btn-lg w-full" +
-                                    " mt-3 text-white"}>
+                                    " mt-3 text-white"} type="submit">
                                     Sign In
                                 </Button>
                             </div>

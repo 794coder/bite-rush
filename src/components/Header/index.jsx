@@ -1,8 +1,11 @@
+"use client"
 import Link from "next/link";
 import Image from "next/image";
 import {MdOutlinePhone} from "react-icons/md";
 import {LiaShoppingBagSolid} from "react-icons/lia";
 import Button from "@mui/material/Button"
+import UserMenu from "@/components/UserMenu";
+
 
 
 const Header = () => {
@@ -29,11 +32,11 @@ const Header = () => {
                     <Link href="/cart"  className={" p-2 m-1"}>
                         <LiaShoppingBagSolid/><span></span>
                     </Link>
-
-                    <Button className={"btn-border rounded-full"
-                    }>
-                        <Link href={'/sign-in'} className={'text-decoration-none'}>Sign In</Link>
-                    </Button>
+                    <UserMenu/>
+                    {/*<Button className={"btn-border rounded-full"*/}
+                    {/*}>*/}
+                    {/*    <Link href={'/sign-in'} className={'text-decoration-none'}>Sign In</Link>*/}
+                    {/*</Button>*/}
                 </div>
             </div>
         </header>

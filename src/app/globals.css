@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
 
 .banner-slider{
   height:100vh;
@@ -15,7 +17,6 @@
   transform: translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
 
 .swiper-slide-active .info {
   opacity: 1;
@@ -214,3 +215,8 @@ footer ul li a:hover{
 .smallSlider .item.active{
   border:1px solid #e3000e !important;
 }
+
+.bg-yellow{
+  background:#F7be27 !important;
+}
+

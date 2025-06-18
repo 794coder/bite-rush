@@ -6,6 +6,8 @@ import {IoMdEye, IoMdEyeOff} from "react-icons/io";
 import Button from "@mui/material/Button";
 import {FcGoogle} from "react-icons/fc";
 import Link from "next/link";
+import {toast} from "react-toastify";
+import {useRouter} from "next/navigation";
 
 
 const SignUp = () => {
@@ -13,7 +15,38 @@ const SignUp = () => {
     const isShowingPassword=()=>{
         setShowPassword(!showPassword);
     }
-
+    const router=useRouter();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const handleSubmit=async(e)=>{
+        e.preventDefault();
+        if(email.trim()===""||password.trim()===""||name.trim()===""||phoneNumber.trim()===""||name.trim()===""){
+            toast("All the fields are required");
+        }
+        const res=await fetch("/api/signUp",{
+            method:"POST",
+            headers:{"content-type":"application/json"},
+            body:JSON.stringify({
+                email,
+                password,
+                name,
+                phoneNumber,
+            })
+        })
+        if(!res.ok){
+            toast("Error signing up!");
+        }
+        else{
+            toast("Signed up successfully,Please login");
+            setName("")
+            setEmail("")
+            setPhoneNumber("")
+            setPassword("")
+            router.push('/sign-in')
+        }
+    }
 
     return (
         <>
@@ -30,7 +63,7 @@ const SignUp = () => {
             <section className={"signInPage py-4"}>
                 <div className="container">
                     <div className="signInBox m-auto  w-[400px] p-3">
-                        <form className="w-full form" >
+                        <form className="w-full form" onSubmit={handleSubmit} >
                             <div className="form-group w-full mt-3">
                                 <Textfield
                                     id={"outlined-basic"}
@@ -38,6 +71,8 @@ const SignUp = () => {
                                     variant={"outlined"}
                                     type={"text"}
                                     className={"w-full"}
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
                                 />
                             </div>
                             <div className="form-group w-full mt-3">
@@ -47,6 +82,8 @@ const SignUp = () => {
                                     variant={"outlined"}
                                     type={"email"}
                                     className={"w-full"}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
                             <div className="form-group w-full mt-3">
@@ -56,6 +93,8 @@ const SignUp = () => {
                                     variant={"outlined"}
                                     type={"text"}
                                     className={"w-full"}
+                                    value={phoneNumber}
+                                    onChange={(e) => setPhoneNumber(e.target.value)}
                                 />
                             </div>
                             <div className="form-group w-full mt-3">
@@ -66,6 +105,8 @@ const SignUp = () => {
                                     variant={"outlined"}
                                     type={showPassword===false?"text":"password"}
                                     className={"w-full"}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                                     {showPassword===false?<IoMdEye className="icon absolute top-[20px] right-[20px] cursor-pointer
                                     text-lg"
@@ -75,7 +116,7 @@ const SignUp = () => {
                             </div>
                             <div className="form-group">
                                 <Button className={"btn-red btn-lg w-full" +
-                                    " mt-3 text-white"}>
+                                    " mt-3 text-white"} type={"submit"}>
                                     Sign Up
                                 </Button>
                             </div>

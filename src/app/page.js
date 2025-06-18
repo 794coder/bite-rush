@@ -1,17 +1,18 @@
 "use client"
-import React,{useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import BannerSlider from "@/components/BannerSlider";
 import Image from "next/image";
 import ProductItem from "@/components/ProductItemV1";
 import Button from "@mui/material/Button"
 import ProductItemV2 from "@/components/ProductItemV2";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination ,Autoplay,EffectFade} from "swiper/modules";
+import { Navigation, Pagination} from "swiper/modules";
 
 // Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import {toast} from "react-toastify";
 
 
 const Home = () => {
@@ -19,6 +20,17 @@ const Home = () => {
     const filterProducts=(index)=>{
         setIsActive(index);
     }
+    const [menu,setMenu]=useState([]);
+   useEffect(() => {
+  const fetchMenu = async () => {
+    const res = await fetch("/api/menu");
+    const data = await res.json();
+    setMenu(data.menu);
+  };
+
+  fetchMenu();
+}, []);
+
   return (
       <div>
         <BannerSlider/>
@@ -44,13 +56,39 @@ const Home = () => {
                       </li>
                   </ul>
 
-                  <div className="productsList ">
-                      <div className="container px-5 flex items-center gap-5 justify-between">
-                          <ProductItem/>
-                          <ProductItem/>
-                          <ProductItem/>
-                          <ProductItem/>
-                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                          <ProductItem
+                                id={1}
+                                name="PANCHO BURGER"
+                                price={13.99}
+                                rating={4.8}
+                                image={'/detail3.png'}
+                                ingredients={[
+                                "beef patty", "bacon", "cheddar", "lettuce", "tomato", "house sauce"]}/>
+
+                             <ProductItem
+                                 id={2}
+                                name="VEGAN DELIGHT"
+                                price={11.49}
+                                rating={4.5}
+                                image={"/burger1.jpg"}
+                                ingredients={["veggie patty", "avocado", "lettuce", "tomato", "vegan mayo"]}/>
+
+                            <ProductItem
+                                id={3}
+                                name="BBQ MONSTER"
+                                price={15.99}
+                                rating={4.7}
+                                image={"/burger2.jpg"}
+                                ingredients={["double beef patties", "onion rings", "bacon", "cheddar", "BBQ sauce"]}/>
+
+                            <ProductItem
+                                id={4}
+                                name="MUSHROOM SWISS"
+                                price={14.5}
+                                rating={4.6}
+                                image={"/burger-3.jpg"}
+                                ingredients={["beef patty", "mushrooms", "Swiss cheese", "garlic mayo", "lettuce"]}/>
                   </div>
               </div>
           </section>
@@ -109,17 +147,15 @@ const Home = () => {
         navigation
         pagination={{ clickable: true }}
         spaceBetween={30}
-        slidesPerView={3} // ✅ Show 3 slides at once
+        slidesPerView={3}
         loop={true}
-        // className="w-full"
-      >
-        <SwiperSlide><ProductItemV2 /></SwiperSlide>
-        <SwiperSlide><ProductItemV2 /></SwiperSlide>
-        <SwiperSlide><ProductItemV2 /></SwiperSlide>
-        <SwiperSlide><ProductItemV2 /></SwiperSlide>
-        <SwiperSlide><ProductItemV2 /></SwiperSlide>
-        <SwiperSlide><ProductItemV2 /></SwiperSlide>
-        <SwiperSlide><ProductItemV2 /></SwiperSlide>
+        className="w-full">
+          {menu.length > 0 &&
+                menu.map((item, index) => (
+                <SwiperSlide key={index}>
+                    <ProductItemV2 item={item} />
+                </SwiperSlide>
+             ))}
       </Swiper>
     </div>
   </div>
@@ -161,3 +197,5 @@ const Home = () => {
 };
 
 export default Home;
+
+

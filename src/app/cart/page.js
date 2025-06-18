@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Image from "next/image";
 import { FaTrash } from "react-icons/fa";
+import {useRouter} from "next/navigation";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([
@@ -13,7 +14,7 @@ const Cart = () => {
       quantity: 1,
     },
   ]);
-
+  const router=useRouter();
   const handleRemove = (id) => {
     setCartItems(cartItems.filter(item => item.id !== id));
   };
@@ -115,7 +116,6 @@ const Cart = () => {
               </div>
             </div>
 
-            {/* You can add a summary or checkout column here */}
             <div className="col-md-4">
               <div className="border p-4 rounded shadow-sm">
                 <h5 className="text-xl font-bold mb-4">Order Summary</h5>
@@ -125,7 +125,7 @@ const Cart = () => {
                     .reduce((total, item) => total + item.price * item.quantity, 0)
                     .toFixed(2)}
                 </p>
-                <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 w-full">
+                <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 w-full" onClick={()=>router.push("/thanks")}>
                   Proceed to Checkout
                 </button>
               </div>
